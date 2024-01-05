@@ -22,13 +22,6 @@ echo "metric 800" >>  /etc/network/interfaces.d/eth0
 
 echo "FallbackNTP=10.136.156.1" >> /etc/systemd/timesyncd.conf
 
-rm -rf /etc/rc.local 
-echo '#!/bin/sh -e' >> /etc/rc.local
-echo "sudo ifconfig wlan0 down" >> /etc/rc.local
-echo "sudo ifconfig wlan0 hw ether e4:5f:01:f4:a9:fb" >> /etc/rc.local
-echo "sudo ifconfig wlan0 up" >> /etc/rc.local
-echo "exit 0" >> /etc/rc.local
-chmod +x /etc/rc.local
 
 echo "[Unit]" > /etc/systemd/system/piconnect.service
 echo "Description= Pi connect " >> /etc/systemd/system/piconnect.service
