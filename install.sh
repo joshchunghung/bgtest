@@ -8,7 +8,7 @@ rm  -rf *
 mkdir Desktop
 mkdir MQTT 
 fi
-
+wget https://raw.githubusercontent.com/joshchunghung/bgtest/main/checkconnect.py -O ${pwd}/MQTT/checkconnect.py
 if [ ! -e "/etc/network/interfaces.d/eth0" ]; then
 sudo bash<<!
 
