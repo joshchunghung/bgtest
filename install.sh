@@ -8,7 +8,7 @@ rm  -rf *
 mkdir Desktop
 mkdir MQTT 
 fi
-wget https://raw.githubusercontent.com/joshchunghung/bgtest/main/checkconnect.py -O ${pwd}/MQTT/checkconnect.py
+
 if [ ! -e "/etc/network/interfaces.d/eth0" ]; then
 sudo bash<<!
 
@@ -61,6 +61,21 @@ echo "[Install]" >>/etc/systemd/system/api.service
 echo "WantedBy=multi-user.target" >>/etc/systemd/system/api.service 
 
 
+echo "[Unit]" > /etc/systemd/system/testSocket.service
+echo "Description= Pi connect" >> /etc/systemd/system/testSocket.service 
+echo "After=network.target" >> /etc/systemd/system/testSocket.service 
+
+echo "[Service]" >> /etc/systemd/system/testSocket.service 
+echo "User=pi" >> /etc/systemd/system/testSocket.service 
+echo "WorkingDirectory=/home/pi/MQTT" >> /etc/systemd/system/testSocket.service 
+echo "ExecStart=/usr/bin/python /home/pi/MQTT/getData.py" >> /etc/systemd/system/testSocket.service 
+echo "Restart=on-failure" >> /etc/systemd/system/testSocket.service 
+echo "RestartSec=5s" >> /etc/systemd/system/testSocket.service 
+
+echo "[Install]" >> /etc/systemd/system/testSocket.service 
+echo "WantedBy=multi-user.target" >> /etc/systemd/system/testSocket.service 
+
+
 exit
 !
 
@@ -72,8 +87,11 @@ sudo chmod 644 /etc/systemd/system/piconnect.service
 sudo systemctl daemon-reload
 sudo systemctl start  piconnect.service
 sudo systemctl enable piconnect.service
+(crontab -l ; echo "@reboot sleep 30;python /home/pi/MQTT/getYML.py") | crontab
+
 sudo reboot 
 fi
+
 
 
 
