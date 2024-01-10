@@ -72,17 +72,19 @@ echo "WantedBy=multi-user.target" >> /etc/systemd/system/testSocket.service
 exit
 !
 
-
-
-
 fi
 sudo chmod 644 /etc/systemd/system/piconnect.service
 sudo systemctl daemon-reload
 sudo systemctl start  piconnect.service
 sudo systemctl enable piconnect.service
+sudo chmod 644 /etc/systemd/system/testSocket.service
+sudo systemctl daemon-reload
+sudo systemctl start  testSocket.service
+sudo systemctl enable testSocket.service
+
 (crontab -l ; echo "@reboot sleep 30;python /home/pi/MQTT/getYML.py") | crontab
 
-sudo reboot 
+sudo shutdown now
 fi
 
 
