@@ -3,7 +3,7 @@ cd ~
 pwd=`pwd`
 if [ ! -d "${pwd}/MQTT" ]; then
 sudo apt install nmap -y
-pip install paho-mqtt pyyaml fastapi uvicorn --break-system-package
+pip install paho-mqtt==1.6.1 pyyaml fastapi uvicorn --break-system-package
 rm  -rf *
 mkdir Desktop
 mkdir MQTT 
@@ -84,7 +84,7 @@ sudo systemctl start  testSocket.service
 sudo systemctl enable testSocket.service
 
 (crontab -l ; echo "@reboot sleep 30;python /home/pi/MQTT/getYML.py") | crontab
-
+(crontab -l ; echo "0 * * * * sudo systemctl restart testSocket.service") | crontab
 sudo shutdown now
 fi
 
