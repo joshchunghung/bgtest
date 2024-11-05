@@ -21,7 +21,7 @@ echo "address 192.168.1.254/16">> /etc/network/interfaces.d/eth0
 echo "gateway 192.168.1.1">> /etc/network/interfaces.d/eth0
 echo "metric 800" >>  /etc/network/interfaces.d/eth0
 
-echo "FallbackNTP=10.136.156.1" >> /etc/systemd/timesyncd.conf
+echo "FallbackNTP=10.136.156.2" >> /etc/systemd/timesyncd.conf
 
 
 echo "[Unit]" > /etc/systemd/system/piconnect.service
